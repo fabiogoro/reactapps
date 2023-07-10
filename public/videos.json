@@ -1,0 +1,22 @@
+{
+  "movies": [
+    {
+      "id": 1,
+      "name": "A Ha - Take On Me",
+      "file": "/videos/m1.mp4",
+      "isPlaying": false
+    },
+    {
+      "id": 2,
+      "name": "El Chombo - Dame Tu Cosita feat. Cutty Ranks",
+      "file": "/videos/m2.mp4",
+      "isPlaying": false
+    },
+    {
+      "id": 3,
+      "name": "Lofi Boy - The Struggle In The 90s",
+      "file": "/videos/m2.mp4",
+      "isPlaying": false
+    }
+  ]
+}
