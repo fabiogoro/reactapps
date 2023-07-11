@@ -10,17 +10,25 @@ import { useState } from 'react'
 
 function StudentForm() {
   const [inputs, setInputs] = useState({});
+  const [errors, setErrors] = useState({});
 
   function formSubmit(event){
-    console.log(inputs)
     event.preventDefault()
-    event.target.checkValidity()
+    setErrors({})
+    setInputs({})
     event.target.reset()
   }
 
   function handleChange(event) {
+    console.log(errors)
+    event.preventDefault()
     const name = event.target.name
     const value = event.target.value
+    if(event.target.willValidate){
+      setErrors({...errors, [name]: event.target.validationMessage})
+    } else {
+      setErrors({...errors, [name]: ''})
+    }
     setInputs({...inputs, [name]: value})
   }
 
@@ -34,7 +42,7 @@ function StudentForm() {
           </div>
           <hr />
         </Row>
-        <Form onSubmit={formSubmit}>
+        <Form onSubmit={formSubmit} onInvalid={handleChange}>
           <Row>
             <Col className="md-5">
               <Input 
@@ -42,6 +50,7 @@ function StudentForm() {
                 icon={faUser} 
                 onChange={handleChange} 
                 minlength="2" 
+                errors={errors}
                 required>
               </Input>
             </Col>
@@ -53,6 +62,7 @@ function StudentForm() {
                 type="email"
                 icon={faInbox} 
                 onChange={handleChange} 
+                errors={errors}
                 required>
               </Input>
             </Col>
@@ -66,6 +76,7 @@ function StudentForm() {
                 placeholder="Street, number, city, zip" 
                 icon={faCity} 
                 minlength="10" 
+                errors={errors}
                 required>
               </Input>
             </Col>
@@ -76,6 +87,8 @@ function StudentForm() {
                 name="Course" 
                 icon={faUniversity} 
                 options={['Node','React','Agriculture']}
+                errors={errors}
+                onChange={handleChange} 
                 required>
               </Input>
             </Col>
@@ -87,6 +100,8 @@ function StudentForm() {
                 icon={faFaceSmile} 
                 type="radio" 
                 options={['Female','Male','Other']}
+                errors={errors}
+                onChange={handleChange} 
                 required>
               </Input>
             </Col>

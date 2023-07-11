@@ -4,7 +4,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import ToggleButton from 'react-bootstrap/ToggleButton'
 import ToggleButtonGroup from 'react-bootstrap/ToggleButtonGroup'
 
-function Input({type, name, placeholder, icon, options, required, onChange, minlength}) {
+function Input({type, name, placeholder, icon, options, required, onChange, minlength, errors}) {
   return (
     <Form.Group className="mb-3" controlId="formBasicEmail">
       <Form.Label>{name}</Form.Label>
@@ -22,6 +22,7 @@ function Input({type, name, placeholder, icon, options, required, onChange, minl
                     id={`radio-${i}`}
                     name={name}
                     variant="secondary"
+                    onChange={onChange}
                     value={o} 
                     required={required}/>
                   <label className="btn btn-secondary" htmlFor={`radio-${i}`}>{o}</label>
@@ -30,7 +31,10 @@ function Input({type, name, placeholder, icon, options, required, onChange, minl
             </div>
           )
           :options?(
-            <Form.Select required={required}>
+            <Form.Select 
+              name={name} 
+              onChange={onChange} 
+              required={required}>
               <option value="">{placeholder?placeholder:`Enter ${name}`}</option>
               {options.map((o,i)=><option key={i} value={o}>{o}</option> )}
             </Form.Select>
@@ -46,6 +50,9 @@ function Input({type, name, placeholder, icon, options, required, onChange, minl
           )
         }
       </InputGroup>
+      <Form.Text className="text-danger">
+        {errors[name]}
+      </Form.Text>
     </Form.Group>
   )
 
